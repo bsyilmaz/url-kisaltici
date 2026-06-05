@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Go kurulumu
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Bagimliliklari indir
+        run: go mod download
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Testler ve kapsam
+        run: go test ./... -coverprofile=coverage.out -covermode=atomic
+
+      - name: Kapsam ozeti
+        run: go tool cover -func=coverage.out

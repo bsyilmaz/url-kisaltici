@@ -1,0 +1,18 @@
+# Derleme ciktilari
+/bin/
+*.test
+
+# Kapsam raporlari
+coverage.out
+coverage.html
+
+# Ortam dosyalari
+.env
+
+# Isletim sistemi
+.DS_Store
+
+# Editor / arac ayarlari
+.claude/
+.idea/
+.vscode/
