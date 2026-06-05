@@ -21,9 +21,9 @@ func Generate(length int) (string, error) {
 	}
 
 	result := make([]byte, length)
-	max := big.NewInt(int64(len(alphabet)))
+	sinir := big.NewInt(int64(len(alphabet)))
 	for i := range result {
-		idx, err := rand.Int(rand.Reader, max)
+		idx, err := rand.Int(rand.Reader, sinir)
 		if err != nil {
 			return "", err
 		}
