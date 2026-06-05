@@ -78,13 +78,18 @@ func (s *Shortener) Resolve(ctx context.Context, code string) (string, error) {
 	return s.repo.Find(ctx, code)
 }
 
-// gecerliMi adresin bos olmadigini ve http/https semasi tasidigini kontrol eder.
+// gecerliMi adresin bos olmadigini, http/https semasi tasidigini ve bir alan
+// adi (host) icerdigini kontrol eder. Boylece "https://" gibi semasi olup
+// host'u olmayan adresler reddedilir.
 func gecerliMi(raw string) bool {
 	if raw == "" {
 		return false
 	}
 	u, err := url.ParseRequestURI(raw)
 	if err != nil {
+		return false
+	}
+	if u.Host == "" {
 		return false
 	}
 	return u.Scheme == "http" || u.Scheme == "https"

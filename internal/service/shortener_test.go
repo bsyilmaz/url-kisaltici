@@ -74,8 +74,8 @@ func TestShortenGecersizURL(t *testing.T) {
 	repo := yeniSahteRepo()
 	svc := NewShortener(repo)
 
-	// Bos, sema icermeyen veya http/https disindaki adresler reddedilmeli.
-	testler := []string{"", "  ", "duz yazi", "ftp://dosya.com", "://eksik", "javascript:alert(1)"}
+	// Bos, sema icermeyen, host'u olmayan veya http/https disindaki adresler reddedilmeli.
+	testler := []string{"", "  ", "duz yazi", "ftp://dosya.com", "://eksik", "javascript:alert(1)", "https://", "http://"}
 	for _, girdi := range testler {
 		_, err := svc.Shorten(context.Background(), girdi)
 		if !errors.Is(err, ErrGecersizURL) {
